@@ -1,0 +1,18 @@
+{
+  "file": "README.md",
+  "ignore": [
+    "node_modules/**",
+    ".git/**",
+    "*.tmp",
+    "dist/**",
+    "coverage/**"
+  ],
+  "languages": {
+    ".mjs": "javascript",
+    ".cjs": "javascript",
+    ".jsx": "jsx",
+    ".tsx": "tsx"
+  },
+  "trimTrailingWhitespace": true,
+  "ensureFinalNewline": true
+}

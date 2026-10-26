@@ -1,0 +1,7 @@
+{
+  "readme-sync": {
+    "autoSync": true,
+    "extensions": [".js", ".ts", ".py", ".json"],
+    "ignoreFiles": ["node_modules", ".git"]
+  }
+}

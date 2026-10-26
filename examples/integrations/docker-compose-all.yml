@@ -1,0 +1,150 @@
+{
+  "version": "3.8",
+  "services": {
+    "analytics": {
+      "build": {
+        "context": "./projects/analytics"
+      },
+      "ports": [
+        "3001:3001"
+      ],
+      "environment": [
+        "NODE_ENV=production"
+      ],
+      "networks": [
+        "microservices"
+      ]
+    },
+    "apigate": {
+      "build": {
+        "context": "./projects/apigate"
+      },
+      "ports": [
+        "3002:3002"
+      ],
+      "environment": [
+        "NODE_ENV=production"
+      ],
+      "networks": [
+        "microservices"
+      ]
+    },
+    "authguard": {
+      "build": {
+        "context": "./projects/authguard"
+      },
+      "ports": [
+        "3003:3003"
+      ],
+      "environment": [
+        "NODE_ENV=production"
+      ],
+      "networks": [
+        "microservices"
+      ]
+    },
+    "backupr": {
+      "build": {
+        "context": "./projects/backupr"
+      },
+      "ports": [
+        "3004:3004"
+      ],
+      "environment": [
+        "NODE_ENV=production"
+      ],
+      "networks": [
+        "microservices"
+      ]
+    },
+    "balancer": {
+      "build": {
+        "context": "./projects/balancer"
+      },
+      "ports": [
+        "3005:3005"
+      ],
+      "environment": [
+        "NODE_ENV=production"
+      ],
+      "networks": [
+        "microservices"
+      ]
+    },
+    "builder": {
+      "build": {
+        "context": "./projects/builder"
+      },
+      "ports": [
+        "3006:3006"
+      ],
+      "environment": [
+        "NODE_ENV=production"
+      ],
+      "networks": [
+        "microservices"
+      ]
+    },
+    "cacheking": {
+      "build": {
+        "context": "./projects/cacheking"
+      },
+      "ports": [
+        "3007:3007"
+      ],
+      "environment": [
+        "NODE_ENV=production"
+      ],
+      "networks": [
+        "microservices"
+      ]
+    },
+    "cacher": {
+      "build": {
+        "context": "./projects/cacher"
+      },
+      "ports": [
+        "3008:3008"
+      ],
+      "environment": [
+        "NODE_ENV=production"
+      ],
+      "networks": [
+        "microservices"
+      ]
+    },
+    "chatengine": {
+      "build": {
+        "context": "./projects/chatengine"
+      },
+      "ports": [
+        "3009:3009"
+      ],
+      "environment": [
+        "NODE_ENV=production"
+      ],
+      "networks": [
+        "microservices"
+      ]
+    },
+    "collector": {
+      "build": {
+        "context": "./projects/collector"
+      },
+      "ports": [
+        "3010:3010"
+      ],
+      "environment": [
+        "NODE_ENV=production"
+      ],
+      "networks": [
+        "microservices"
+      ]
+    }
+  },
+  "networks": {
+    "microservices": {
+      "driver": "bridge"
+    }
+  }
+}

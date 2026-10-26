@@ -1,0 +1,45 @@
+{
+  "name": "readme-sync",
+  "version": "1.0.0",
+  "description": "A zero-dependency CLI tool that automatically extracts live code snippets from source files and injects them into markdown documentation",
+  "main": "bin/readme-sync.js",
+  "bin": {
+    "readme-sync": "./bin/readme-sync.js"
+  },
+  "scripts": {
+    "test": "node test/run-tests.js",
+    "test:edge": "node test/edge-cases.js",
+    "test:stress": "node test/stress-tests.js",
+    "test:cli": "node test/cli-integration.js",
+    "test:config": "node test/config-tests.js",
+    "test:glob": "node test/glob-tests.js",
+    "test:plugin": "node test/plugin-tests.js",
+    "test:benchmark": "node test/benchmark-tests.js",
+    "test:all": "npm run test && npm run test:edge && npm run test:stress && npm run test:cli && npm run test:config && npm run test:glob && npm run test:plugin && npm run test:benchmark",
+    "test:coverage": "node test/coverage.js",
+    "benchmark": "node scripts/benchmark.js",
+    "docs": "node scripts/generate-docs.js",
+    "sync": "node bin/readme-sync.js",
+    "sync:check": "node bin/readme-sync.js --check",
+    "lint": "echo 'No linter configured (zero dependency goal)'",
+    "validate": "npm run test:all && npm run benchmark"
+  },
+  "keywords": [
+    "readme",
+    "markdown",
+    "sync",
+    "documentation",
+    "code-snippets",
+    "cli"
+  ],
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "files": [
+    "bin/",
+    "src/",
+    "README.md"
+  ]
+}

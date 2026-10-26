@@ -1,0 +1,79 @@
+name: readme-sync Check
+
+on:
+  push:
+    branches: [ main, master ]
+    paths:
+      - '**.md'
+      - '**.js'
+      - '**.ts'
+      - '**.py'
+      - 'examples/**'
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Check README Sync
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x, 22.x]
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+      
+      - name: Cache Node.js modules
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ matrix.node-version }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-${{ matrix.node-version }}-
+      
+      - name: Run readme-sync check
+        id: sync-check
+        run: |
+          echo "::group::Checking README synchronization"
+          node bin/readme-sync.js --check --verbose
+          echo "::endgroup::"
+        continue-on-error: true
+      
+      - name: Auto-fix if out of sync (push only)
+        if: steps.sync-check.outcome == 'failure' && github.event_name == 'push'
+        run: |
+          echo "::warning::README.md is out of sync. Auto-fixing..."
+          node bin/readme-sync.js --verbose
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "docs: auto-sync README.md [skip ci]" || echo "No changes to commit"
+          git push
+      
+      - name: Report status
+        if: steps.sync-check.outcome == 'failure' && github.event_name != 'push'
+        run: |
+          echo "::error::README.md is out of sync with source files"
+          echo ""
+          echo "To fix locally, run:"
+          echo "  node bin/readme-sync.js"
+          echo ""
+          echo "Or enable auto-fix in your workflow."
+          exit 1
+      
+      - name: Success
+        if: steps.sync-check.outcome == 'success'
+        run: echo "::notice::README.md is synchronized ✓"
+
